@@ -1,6 +1,6 @@
 # test
 #
-# one machine setup with weblogic 10.3.6 with BSU
+# one machine setup with weblogic 12.1.2
 # needs jdk7, orawls, orautils, fiddyspence-sysctl, erwbgy-limits puppet modules
 #
 
@@ -8,7 +8,6 @@ node 'admin.example.com' {
   
   include os, ssh, java
   include orawls::weblogic, orautils
-  include bsu
   include domains, nodemanager, startwls, userconfig
   include machines
   include managed_servers
@@ -41,25 +40,6 @@ class os {
   host{"node2":
     ip => "10.10.10.200",
     host_aliases => ['node2.example.com','node2'],
-  }
-
-  exec { "create swap file":
-    command => "/bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=8192",
-    creates => "/var/swap.1",
-  }
-
-  exec { "attach swap file":
-    command => "/sbin/mkswap /var/swap.1 && /sbin/swapon /var/swap.1",
-    require => Exec["create swap file"],
-    unless => "/sbin/swapon -s | grep /var/swap.1",
-  }
-
-  #add swap file entry to fstab
-  exec {"add swapfile entry to fstab":
-    command => "/bin/echo >>/etc/fstab /var/swap.1 swap swap defaults 0 0",
-    require => Exec["attach swap file"],
-    user => root,
-    unless => "/bin/grep '^/var/swap.1' /etc/fstab 2>/dev/null",
   }
 
   service { iptables:
@@ -189,18 +169,8 @@ class java {
 
 }
 
-
-class bsu{
-  require orawls::weblogic
-
-  notice 'class bsu'
-  $default_params = {}
-  $bsu_instances = hiera('bsu_instances', [])
-  create_resources('orawls::bsu',$bsu_instances, $default_params)
-}
-
 class domains{
-  require orawls::weblogic, bsu
+  require orawls::weblogic
 
   notice 'class domains'
   $default_params = {}

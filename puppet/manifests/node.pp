@@ -22,25 +22,6 @@ class os {
     host_aliases => ['admin.example.com','admin'],
   }
 
-  exec { "create swap file":
-    command => "/bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=8192",
-    creates => "/var/swap.1",
-  }
-
-  exec { "attach swap file":
-    command => "/sbin/mkswap /var/swap.1 && /sbin/swapon /var/swap.1",
-    require => Exec["create swap file"],
-    unless => "/sbin/swapon -s | grep /var/swap.1",
-  }
-
-  #add swap file entry to fstab
-  exec {"add swapfile entry to fstab":
-    command => "/bin/echo >>/etc/fstab /var/swap.1 swap swap defaults 0 0",
-    require => Exec["attach swap file"],
-    user => root,
-    unless => "/bin/grep '^/var/swap.1' /etc/fstab 2>/dev/null",
-  }
-
   service { iptables:
         enable    => false,
         ensure    => false,
@@ -162,15 +143,6 @@ class java {
       sourcePath           => "/vagrant",
   }
 
-}
-
-class bsu {
-  require orawls::weblogic
-
-  notify { 'class bsu':} 
-  $default_params = {}
-  $bsu_instances = hiera('bsu_instances', [])
-  create_resources('orawls::bsu',$bsu_instances, $default_params)
 }
 
 class copydomain {
