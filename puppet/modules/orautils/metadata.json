@@ -6,7 +6,21 @@
   "description": "Oracle WebLogic and Database linux utilities scripts",
   "dependencies": [],
   "types": [],
-  "checksums": {},
+  "checksums": {
+    "License": "da7d8b642432b13765207d2c382a6555",
+    "Modulefile": "b704da6f24d99b8f31813f70c7aa4f7d",
+    "README.md": "0e6e7c492506f84f0fad68b04c5a774c",
+    "manifests/init.pp": "5ce07c216becfcb4b09e80ec7f5da7c3",
+    "manifests/nodemanagerautostart.pp": "08d7b682eacdb70b38d596b1eef3f085",
+    "manifests/params.pp": "c3e9a9da95ebd182b26c8507102d6367",
+    "templates/cleanOracleEnvironment.sh.erb": "8841e6b341ad0091fcacaa5c1d30cb2b",
+    "templates/nodemanager.erb": "cfac2e8317a7c6ef5e9487e1f16dadf9",
+    "templates/startNodeManager.sh.erb": "677d4cad8269ff5ebd5b798c62621776",
+    "templates/startWeblogicAdmin.sh.erb": "69ee00c427f353dd89be250420a1bb09",
+    "templates/stopWeblogicAdmin.sh.erb": "f63c7d13a06c9e432208c0286aef036c",
+    "templates/wls/showStatus.sh.erb": "d68bb862c52aa97b0b0f3e52c3c0744f",
+    "templates/wls/stopNodeManager.sh.erb": "e93ad2e724aa6e0412dfd3851b655c6d"
+  },
   "source": "https://github.com/biemond/puppet/tree/master/modules/oradb",
   "project_page": "https://github.com/biemond/puppet/tree/master/modules/orautils",
   "license": "Apache 2.0"

@@ -7,7 +7,7 @@
 
 node 'node1.example.com', 'node2.example.com' {
   
-  include os, ssh, java, orawls::weblogic, bsu, orautils, copydomain, nodemanager
+  include os, ssh, java, orawls::weblogic,  orautils, copydomain, nodemanager
 
   Class['java'] -> Class['orawls::weblogic'] 
 }
@@ -33,6 +33,7 @@ class os {
   }
 
   # http://raftaman.net/?p=1311 for generating password
+  # password = oracle
   user { 'wls' :
     ensure     => present,
     groups     => 'dba',
@@ -145,9 +146,17 @@ class java {
 
 }
 
-class copydomain {
-  require orawls::weblogic, bsu
+class bsu {
+  require orawls::weblogic
 
+  notify { 'class bsu':} 
+  $default_params = {}
+  $bsu_instances = hiera('bsu_instances', [])
+  create_resources('orawls::bsu',$bsu_instances, $default_params)
+}
+
+class copydomain {
+  require orawls::weblogic
 
   notify { 'class copydomain':} 
   $default_params = {}
@@ -158,7 +167,7 @@ class copydomain {
 
 
 class nodemanager {
-  require orawls::weblogic, bsu, copydomain
+  require orawls::weblogic,  copydomain
 
   notify { 'class nodemanager':} 
   $default_params = {}

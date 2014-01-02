@@ -169,6 +169,15 @@ class java {
 
 }
 
+class bsu{
+  require orawls::weblogic
+
+  notice 'class bsu'
+  $default_params = {}
+  $bsu_instances = hiera('bsu_instances', [])
+  create_resources('orawls::bsu',$bsu_instances, $default_params)
+}
+
 class domains{
   require orawls::weblogic
 
