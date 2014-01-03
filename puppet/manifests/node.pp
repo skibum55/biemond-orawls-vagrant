@@ -15,19 +15,23 @@ node 'node1', 'node2' {
 class getfiles {
 
   notify { 'getfiles from google':}
+
+  file { ["/data","/data/install"]:
+       ensure => "directory",
+  }
   
   wget::fetch { "download jdk":
        source      => 'https://googledrive.com/host/0B8QvzyOq8dtQN2lWaXFTWGtKdkE',
        destination => '/data/install/jdk-7u45-linux-x64.tar.gz',
        timeout     => 0,
-       verbose     => false,
+       nocheckcertificate => false,
     }
     
     wget::fetch { "download weblogic install":
        source      => 'https://googledrive.com/host/0B8QvzyOq8dtQMlBFU1ZiWXM3ejg',
        destination => '/data/install/wls1036_generic.jar',
        timeout     => 0,
-       verbose     => false,
+       nocheckcertificate => false,
     }
 }
 
