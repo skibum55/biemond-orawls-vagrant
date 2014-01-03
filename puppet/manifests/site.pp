@@ -6,7 +6,7 @@
 
 node 'admin' {
   
-  include os, ssh, java
+  include os, ssh, java, wget
   include orawls::weblogic, orautils
   include domains, nodemanager, startwls, userconfig
   include machines
@@ -24,8 +24,27 @@ node 'admin' {
   include jms_module_foreign_server_objects,jms_module_foreign_server_entries_objects
   include pack_domain
 
-  Class[java] -> Class[orawls::weblogic]
-}  
+  Class['os'] - > Class['getfiles'] -> Class['java'] -> Class['orawls::weblogic'] 
+}
+
+class getfiles {
+
+  notify { "getfiles from google" }
+  
+  wget::fetch { "download jdk":
+       source      => 'https://googledrive.com/host/0B8QvzyOq8dtQN2lWaXFTWGtKdkE',
+       destination => '/home/wls/jdk-7u45-linux-x64.tar.gz',
+       timeout     => 0,
+       verbose     => false,
+    }
+    
+    wget::fetch { "download weblogic install":
+       source      => 'https://googledrive.com/host/0B8QvzyOq8dtQMlBFU1ZiWXM3ejg',
+       destination => '/home/wls/wls1036_generic.jar',
+       timeout     => 0,
+       verbose     => false,
+    }
+}
 
 # operating settings for Middleware
 class os {
