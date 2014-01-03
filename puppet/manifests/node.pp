@@ -9,7 +9,7 @@ node 'node1', 'node2' {
   
   include os, ssh, java, orawls::weblogic,  orautils, copydomain, nodemanager, wget
 
-  Class['os'] - > Class['getfiles'] -> Class['java'] -> Class['orawls::weblogic'] 
+  Class['os'] -> Class['getfiles'] -> Class['java'] -> Class['orawls::weblogic'] 
 }
 
 class getfiles {
