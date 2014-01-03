@@ -4,7 +4,7 @@
 # needs jdk7, orawls, orautils, fiddyspence-sysctl, erwbgy-limits puppet modules
 #
 
-node 'admin.example.com' {
+node 'admin' {
   
   include os, ssh, java
   include orawls::weblogic, orautils
@@ -33,19 +33,25 @@ class os {
   notice "class os ${operatingsystem}"
 
   host{"node1":
-    ip => "10.10.10.100",
+    ip => "192.168.14.5",
     host_aliases => ['node1.example.com','node1'],
   }
 
   host{"node2":
-    ip => "10.10.10.200",
+    ip => "192.168.14.6",
     host_aliases => ['node2.example.com','node2'],
   }
 
-  service { iptables:
-        enable    => false,
-        ensure    => false,
-        hasstatus => true,
+#  service { iptables:
+#        enable    => false,
+#        ensure    => false,
+#        hasstatus => true,
+#  }
+# turn off firewall - UFW
+
+  exec { firewall_shutdown:
+        command => '/usr/sbin/ufw disable',
+        user => root,
   }
 
   group { 'dba' :
@@ -65,7 +71,7 @@ class os {
     require    => Group['dba'],
   }
 
-  $install = [ 'binutils.x86_64','unzip.x86_64']
+  $install = [ 'binutils','unzip']
 
 
   package { $install:
@@ -121,7 +127,7 @@ class ssh {
     owner   => "wls",
     group   => "dba",
     mode    => "644",
-    source  => "/vagrant/ssh/id_rsa.pub",
+    source  => "/root/skibum55-orawls-vagrant/ssh/id_rsa.pub",
     require => File["wls-ssh-dir"],
   }
   
@@ -130,7 +136,7 @@ class ssh {
     owner   => "wls",
     group   => "dba",
     mode    => "600",
-    source  => "/vagrant/ssh/id_rsa",
+    source  => "/root/skibum55-orawls-vagrant/ssh/id_rsa",
     require => File["wls-ssh-dir"],
   }
   
@@ -139,7 +145,7 @@ class ssh {
     owner   => "wls",
     group   => "dba",
     mode    => "644",
-    source  => "/vagrant/ssh/id_rsa.pub",
+    source  => "/root/skibum55-orawls-vagrant/ssh/id_rsa.pub",
     require => File["wls-ssh-dir"],
   }        
 }
@@ -164,7 +170,7 @@ class java {
       x64                  => true,
       downloadDir          => "/data/install",
       urandomJavaFix       => true,
-      sourcePath           => "/vagrant",
+      sourcePath           => "/home/wls",
   }
 
 }

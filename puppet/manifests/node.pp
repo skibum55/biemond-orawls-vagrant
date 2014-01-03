@@ -97,7 +97,7 @@ class ssh {
     owner   => "wls",
     group   => "dba",
     mode    => "644",
-    source  => "/vagrant/ssh/id_rsa.pub",
+    source  => "ssh/id_rsa.pub",
     require => File["wls-ssh-dir"],
   }
   
@@ -106,7 +106,7 @@ class ssh {
     owner   => "wls",
     group   => "dba",
     mode    => "600",
-    source  => "/vagrant/ssh/id_rsa",
+    source  => "ssh/id_rsa",
     require => File["wls-ssh-dir"],
   }
   
@@ -115,7 +115,7 @@ class ssh {
     owner   => "wls",
     group   => "dba",
     mode    => "644",
-    source  => "/vagrant/ssh/id_rsa.pub",
+    source  => "ssh/id_rsa.pub",
     require => File["wls-ssh-dir"],
   }        
 }
@@ -141,7 +141,7 @@ class java {
       x64                  => true,
       downloadDir          => "/data/install",
       urandomJavaFix       => true,
-      sourcePath           => "/vagrant",
+      sourcePath           =>"/root/skibum55-orawls-vagrant",
   }
 
 }
