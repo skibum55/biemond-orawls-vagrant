@@ -7,9 +7,28 @@
 
 node 'node1', 'node2' {
   
-  include os, ssh, java, orawls::weblogic,  orautils, copydomain, nodemanager
+  include os, ssh, java, orawls::weblogic,  orautils, copydomain, nodemanager, wget
 
-  Class['java'] -> Class['orawls::weblogic'] 
+  Class['os'] - > Class['getfiles'] -> Class['java'] -> Class['orawls::weblogic'] 
+}
+
+class getfiles {
+
+  notify { "getfiles from google" }
+  
+  wget::fetch { "download jdk":
+       source      => 'https://googledrive.com/host/0B8QvzyOq8dtQN2lWaXFTWGtKdkE',
+       destination => '/home/wls/jdk-7u45-linux-x64.tar.gz',
+       timeout     => 0,
+       verbose     => false,
+    }
+    
+    wget::fetch { "download weblogic install":
+       source      => 'https://googledrive.com/host/0B8QvzyOq8dtQMlBFU1ZiWXM3ejg',
+       destination => '/home/wls/wls1036_generic.jar',
+       timeout     => 0,
+       verbose     => false,
+    }
 }
 
 # operating settings for Middleware
