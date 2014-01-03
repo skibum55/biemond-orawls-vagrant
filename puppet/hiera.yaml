@@ -1,7 +1,7 @@
 ---
 :backends: yaml
 :yaml:
-  :datadir: puppet/hieradata
+  :datadir: /root/skibum55-orawls-vagrant/puppet/hieradata
 :hierarchy: 
   - "%{::fqdn}"
   - "%{::environment}"

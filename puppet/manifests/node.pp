@@ -7,9 +7,9 @@
 
 node 'node1', 'node2' {
   
-  include os, ssh, java, orawls::weblogic,  orautils, copydomain, nodemanager, wget, getfiles
+  include os, ssh, java, bsu, orawls::weblogic,  orautils, copydomain, nodemanager, wget, getfiles
 
-  Class['getfiles'] -> Class['java'] -> Class['orawls::weblogic'] 
+  Class['java'] -> Class['orawls::weblogic'] 
 }
 
 class getfiles {
@@ -180,7 +180,7 @@ class bsu {
 
   notify { 'class bsu':} 
   $default_params = {}
-  $bsu_instances = hiera('bsu_instances', [])
+  $bsu_instances = hiera('bsu_instances', {})
   create_resources('orawls::bsu',$bsu_instances, $default_params)
 }
 
