@@ -24,12 +24,12 @@ node 'admin' {
   include jms_module_foreign_server_objects,jms_module_foreign_server_entries_objects
   include pack_domain
 
-  Class['os'] - > Class['getfiles'] -> Class['java'] -> Class['orawls::weblogic'] 
+  Class['os'] -> Class['getfiles'] -> Class['java'] -> Class['orawls::weblogic'] 
 }
 
 class getfiles {
 
-  notify { "getfiles from google" }
+  notify { 'getfiles from google': }
   
   wget::fetch { "download jdk":
        source      => 'https://googledrive.com/host/0B8QvzyOq8dtQN2lWaXFTWGtKdkE',
