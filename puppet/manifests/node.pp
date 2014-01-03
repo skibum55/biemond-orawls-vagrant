@@ -18,7 +18,7 @@ class os {
   notify { "class os ${operatingsystem}":} 
 
   host{"admin":
-    ip => "10.10.10.10",
+    ip => "192.168.14.4",
     host_aliases => ['admin.example.com','admin'],
   }
 
@@ -159,7 +159,7 @@ class java {
       x64                  => true,
       downloadDir          => "/data/install",
       urandomJavaFix       => true,
-      sourcePath           => "/vagrant",
+      sourcePath           => "/home/wls",
   }
 
 }
