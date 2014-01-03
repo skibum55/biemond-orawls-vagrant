@@ -26,7 +26,7 @@ class orautils(
     if $oraUserParam != undef {
       $user           = $oraUserParam
     } else {
-      $user           = "oracle"
+      $user           = "wls"
     }
     $group            = "dba"
     $mode             = "0775"
