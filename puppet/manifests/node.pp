@@ -14,7 +14,7 @@ node 'node1', 'node2' {
 
 class getfiles {
 
-  notify { "getfiles from google" }
+  notify { 'getfiles from google':}
   
   wget::fetch { "download jdk":
        source      => 'https://googledrive.com/host/0B8QvzyOq8dtQN2lWaXFTWGtKdkE',
