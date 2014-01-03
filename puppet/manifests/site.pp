@@ -199,7 +199,7 @@ class bsu{
 
   notice 'class bsu'
   $default_params = {}
-  $bsu_instances = hiera('bsu_instances', [])
+  $bsu_instances = hiera('bsu_instances', {})
   create_resources('orawls::bsu',$bsu_instances, $default_params)
 }
 
@@ -208,7 +208,7 @@ class domains{
 
   notice 'class domains'
   $default_params = {}
-  $domain_instances = hiera('domain_instances', [])
+  $domain_instances = hiera('domain_instances', {})
   create_resources('orawls::domain',$domain_instances, $default_params)
 }
 
@@ -217,7 +217,7 @@ class nodemanager {
 
   notify { 'class nodemanager':} 
   $default_params = {}
-  $nodemanager_instances = hiera('nodemanager_instances', [])
+  $nodemanager_instances = hiera('nodemanager_instances', {})
   create_resources('orawls::nodemanager',$nodemanager_instances, $default_params)
 }
 
@@ -227,7 +227,7 @@ class startwls {
 
   notify { 'class startwls':} 
   $default_params = {}
-  $control_instances = hiera('control_instances', [])
+  $control_instances = hiera('control_instances', {})
   create_resources('orawls::control',$control_instances, $default_params)
 }
 
@@ -236,7 +236,7 @@ class userconfig{
 
   notify { 'class userconfig':} 
   $default_params = {}
-  $userconfig_instances = hiera('userconfig_instances', [])
+  $userconfig_instances = hiera('userconfig_instances', {})
   create_resources('orawls::storeuserconfig',$userconfig_instances, $default_params)
 } 
 
@@ -245,7 +245,7 @@ class machines{
 
   notify { 'class machines':} 
   $default_params = {}
-  $machines_instances = hiera('machines_instances', [])
+  $machines_instances = hiera('machines_instances', {})
   create_resources('orawls::wlstexec',$machines_instances, $default_params)
 }
 
