@@ -7,9 +7,9 @@
 
 node 'node1', 'node2' {
   
-  include os, ssh, java, orawls::weblogic,  orautils, copydomain, nodemanager, wget
+  include os, ssh, java, orawls::weblogic,  orautils, copydomain, nodemanager, wget, getfiles
 
-  Class['os'] -> Class['getfiles'] -> Class['java'] -> Class['orawls::weblogic'] 
+  Class['getfiles'] -> Class['java'] -> Class['orawls::weblogic'] 
 }
 
 class getfiles {
@@ -18,14 +18,14 @@ class getfiles {
   
   wget::fetch { "download jdk":
        source      => 'https://googledrive.com/host/0B8QvzyOq8dtQN2lWaXFTWGtKdkE',
-       destination => '/home/wls/jdk-7u45-linux-x64.tar.gz',
+       destination => '/data/install/jdk-7u45-linux-x64.tar.gz',
        timeout     => 0,
        verbose     => false,
     }
     
     wget::fetch { "download weblogic install":
        source      => 'https://googledrive.com/host/0B8QvzyOq8dtQMlBFU1ZiWXM3ejg',
-       destination => '/home/wls/wls1036_generic.jar',
+       destination => '/data/install/wls1036_generic.jar',
        timeout     => 0,
        verbose     => false,
     }
@@ -122,7 +122,7 @@ class ssh {
     owner   => "wls",
     group   => "dba",
     mode    => "644",
-    source  => "ssh/id_rsa.pub",
+    source  => "/root/skibum55-orawls-vagrant/ssh/id_rsa.pub",
     require => File["wls-ssh-dir"],
   }
   
@@ -131,7 +131,7 @@ class ssh {
     owner   => "wls",
     group   => "dba",
     mode    => "600",
-    source  => "ssh/id_rsa",
+    source  => "/root/skibum55-orawls-vagrant/ssh/id_rsa",
     require => File["wls-ssh-dir"],
   }
   
@@ -140,7 +140,7 @@ class ssh {
     owner   => "wls",
     group   => "dba",
     mode    => "644",
-    source  => "ssh/id_rsa.pub",
+    source  => "/root/skibum55-orawls-vagrant/ssh/id_rsa.pub",
     require => File["wls-ssh-dir"],
   }        
 }
@@ -166,7 +166,7 @@ class java {
       x64                  => true,
       downloadDir          => "/data/install",
       urandomJavaFix       => true,
-      sourcePath           =>"/root/skibum55-orawls-vagrant",
+      sourcePath           =>"/data/install",
   }
 
 }
@@ -185,7 +185,7 @@ class copydomain {
 
   notify { 'class copydomain':} 
   $default_params = {}
-  $copy_instances = hiera('copy_instances', [])
+  $copy_instances = hiera('copy_instances',{})
   create_resources('orawls::copydomain',$copy_instances, $default_params)
 
 }
@@ -196,6 +196,6 @@ class nodemanager {
 
   notify { 'class nodemanager':} 
   $default_params = {}
-  $nodemanager_instances = hiera('nodemanager_instances', [])
+  $nodemanager_instances = hiera('nodemanager_instances', {})
   create_resources('orawls::nodemanager',$nodemanager_instances, $default_params)
 }
