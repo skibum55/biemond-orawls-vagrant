@@ -34,7 +34,7 @@ class os {
   notice "class os ${operatingsystem}"
 
   host{"node1":
-    ip => "10.10.10.100",
+    ip => "192.168.14.2",
     host_aliases => ['node1.example.com','node1'],
   }
 
