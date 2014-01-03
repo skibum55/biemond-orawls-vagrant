@@ -6,7 +6,7 @@
 
 node 'admin' {
   
-  include os, ssh, java, wget
+  include os, ssh, java, wget, getfiles
   include orawls::weblogic, orautils
   include domains, nodemanager, startwls, userconfig
   include machines
