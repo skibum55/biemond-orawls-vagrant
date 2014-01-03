@@ -5,7 +5,7 @@
 # needs jdk7, orawls, orautils, fiddyspence-sysctl, erwbgy-limits puppet modules
 #
 
-node 'node1.example.com', 'node2.example.com' {
+node 'node1', 'node2' {
   
   include os, ssh, java, orawls::weblogic,  orautils, copydomain, nodemanager
 
@@ -18,7 +18,7 @@ class os {
   notify { "class os ${operatingsystem}":} 
 
   host{"admin":
-    ip => "10.10.10.10",
+    ip => "192.168.14.4",
     host_aliases => ['admin.example.com','admin'],
   }
 
@@ -45,7 +45,7 @@ class os {
     require    => Group['dba'],
   }
 
-  $install = [ 'binutils.x86_64','unzip.x86_64']
+  $install = [ 'binutils','unzip']
 
   package { $install:
     ensure  => present,
