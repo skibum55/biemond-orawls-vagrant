@@ -41,10 +41,16 @@ class os {
     host_aliases => ['admin.example.com','admin'],
   }
 
-  service { iptables:
-        enable    => false,
-        ensure    => false,
-        hasstatus => true,
+#  service { iptables:
+#        enable    => false,
+#        ensure    => false,
+#        hasstatus => true,
+#  }
+# turn off firewall - UFW
+
+  exec { firewall_shutdown:
+        command => '/usr/sbin/ufw disable',
+        user => root,
   }
 
   group { 'dba' :
