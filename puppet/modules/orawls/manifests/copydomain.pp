@@ -144,14 +144,14 @@ define orawls::copydomain (
 
     # copy domain from the adminserver to the this node ( with scp and without passwords )
     exec { "copy domain jar ${domain_name}":
-      command => "scp -oStrictHostKeyChecking=no -oCheckHostIP=no ${os_user}@${adminserver_address}:${download_dir}/domain_${domain_name}.jar ${download_dir}/domain_${domain_name}.jar",
+      command => "scp -oStrictHostKeyChecking=no -oCheckHostIP=no ${os_user}@${adminserver_address}:${download_dir}/domain_${domain_name}.jar ${log_dir}/domain_${domain_name}.jar",
       path      => $exec_path,
       user      => $os_user,
       group     => $os_group,
       logoutput => $log_output,
     }
 
-    $unPackCommand = "-domain=${domains_path_dir}/${domain_name} -template=${download_dir}/domain_${domain_name}.jar -app_dir=${apps_path_dir} -log=${download_dir}/domain_${domain_name}.log -log_priority=INFO"
+    $unPackCommand = "-domain=${domains_path_dir}/${domain_name} -template=${log_dir}/domain_${domain_name}.jar -app_dir=${apps_path_dir} -log=${log_dir}/domain_${domain_name}.log -log_priority=INFO"
 
     exec { "unpack ${domain_name}":
       command => "${weblogic_home_dir}/common/bin/unpack.sh ${unPackCommand} -user_name=${weblogic_user} -password=${weblogic_password}",

@@ -7,7 +7,7 @@
 
 node 'node1', 'node2' {
   
-  include os, ssh, java, bsu, orawls::weblogic,  orautils, copydomain, nodemanager, wget, getfiles
+  include os, ssh, java, orawls::weblogic,  orautils, copydomain, nodemanager, wget, getfiles
 
   Class['java'] -> Class['orawls::weblogic'] 
 }
@@ -191,7 +191,6 @@ class copydomain {
   $default_params = {}
   $copy_instances = hiera('copy_instances',{})
   create_resources('orawls::copydomain',$copy_instances, $default_params)
-
 }
 
 
