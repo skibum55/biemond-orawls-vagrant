@@ -9,7 +9,7 @@ domain     = '<%= @domain_name %>'
 domainPath = '<%= @domain_dir %>'
 wlsServer  = '<%= @server %>'
 
-nmConnect(wlsUser,password,machine,portNumber,domain,domainPath,'ssl')
+nmConnect(wlsUser,password,machine,portNumber,domain)
 
 #start the WlsServer
 nmStart(wlsServer)
