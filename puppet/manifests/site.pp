@@ -35,6 +35,7 @@ class getfiles {
        source      => 'https://googledrive.com/host/0B8QvzyOq8dtQN2lWaXFTWGtKdkE',
        destination => '/home/wls/jdk-7u45-linux-x64.tar.gz',
        timeout     => 0,
+       nocheckcertificate => true,
        verbose     => false,
     }
     
@@ -42,6 +43,7 @@ class getfiles {
        source      => 'https://googledrive.com/host/0B8QvzyOq8dtQMlBFU1ZiWXM3ejg',
        destination => '/home/wls/wls1036_generic.jar',
        timeout     => 0,
+       nocheckcertificate => true,
        verbose     => false,
     }
 }
@@ -61,17 +63,17 @@ class os {
     host_aliases => ['node2.example.com','node2'],
   }
 
-#  service { iptables:
-#        enable    => false,
-#        ensure    => false,
-#        hasstatus => true,
-#  }
+  service { iptables:
+        enable    => false,
+        ensure    => false,
+        hasstatus => true,
+  }
 # turn off firewall - UFW
 
-  exec { firewall_shutdown:
-        command => '/usr/sbin/ufw disable',
-        user => root,
-  }
+#  exec { firewall_shutdown:
+#        command => '/usr/sbin/ufw disable',
+#        user => root,
+#  }
 
   group { 'dba' :
     ensure => present,
@@ -146,7 +148,7 @@ class ssh {
     owner   => "wls",
     group   => "dba",
     mode    => "644",
-    source  => "/root/skibum55-orawls-vagrant/ssh/id_rsa.pub",
+    source  => "/vagrant/ssh/id_rsa.pub",
     require => File["wls-ssh-dir"],
   }
   
@@ -155,7 +157,7 @@ class ssh {
     owner   => "wls",
     group   => "dba",
     mode    => "600",
-    source  => "/root/skibum55-orawls-vagrant/ssh/id_rsa",
+    source  => "/vagrant/ssh/id_rsa",
     require => File["wls-ssh-dir"],
   }
   
@@ -164,7 +166,7 @@ class ssh {
     owner   => "wls",
     group   => "dba",
     mode    => "644",
-    source  => "/root/skibum55-orawls-vagrant/ssh/id_rsa.pub",
+    source  => "/vagrant/ssh/id_rsa.pub",
     require => File["wls-ssh-dir"],
   }        
 }
@@ -257,7 +259,7 @@ define wlst_yaml()
   $apps_config_dir = hiera('apps_config_dir')
 
   $apps.each |$app| { 
-    $allHieraEntriesYaml = loadyaml("${apps_config_dir}/${app}/${type}/${app}_${type}.yaml")
+    $allHieraEntriesYaml = loadyaml("/vagrant/${apps_config_dir}/${app}/${type}/${app}_${type}.yaml")
     if $allHieraEntriesYaml != undef {
       if $allHieraEntriesYaml["${type}_instances"] != undef {
         orawls::utils::wlstbulk{ "${type}_instances_${app}":
@@ -287,7 +289,7 @@ define wlst_jms_yaml()
   $apps_config_dir = hiera('apps_config_dir')
 
   $apps.each |$app| { 
-    $allHieraEntriesYaml = loadyaml("${apps_config_dir}/${app}/jms/${type}/${app}_${type}.yaml")
+    $allHieraEntriesYaml = loadyaml("/vagrant/${apps_config_dir}/${app}/jms/${type}/${app}_${type}.yaml")
     if $allHieraEntriesYaml != undef {
       if $allHieraEntriesYaml["${type}_instances"] != undef {
         orawls::utils::wlstbulk{ "jms_${type}_instances_${app}":
