@@ -186,7 +186,7 @@ class java {
 
   jdk7::install7{ 'jdk1.7.0_45':
       version              => "7u45" , 
-      fullVersion          => "jdk1.7.0_45",
+      fullVersion          => "jdk1.7.0",
       alternativesPriority => 18000, 
       x64                  => true,
       downloadDir          => "/data/install",
