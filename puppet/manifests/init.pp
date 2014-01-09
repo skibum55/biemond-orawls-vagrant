@@ -1,4 +1,4 @@
-# Class: orawls-tiaa
+# Class: tiaa-orawls
 #
 # This class is a stub for a module that provides a sysctl type and
 # 2 providers:
@@ -12,6 +12,6 @@
 #
 # Sample Usage:
 #
-class orawls-tiaa {
+class tiaa-orawls {
   # foooooooooooo
 }
