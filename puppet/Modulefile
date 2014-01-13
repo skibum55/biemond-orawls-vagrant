@@ -1,0 +1,11 @@
+name    'tiaa-orawls'
+version '0.2.1'
+source 'TIAA'
+author 'Sean Keery <sean.keery@tiaa-cref.org>'
+license 'Apache License, Version 2.0'
+summary 'Transition of weblogic install to Puppet'
+description 'Transition of weblogic to Puppet Class using hiera'
+project_page 'None'
+
+## Add dependencies, if any:
+dependency 'biemond/orawls'

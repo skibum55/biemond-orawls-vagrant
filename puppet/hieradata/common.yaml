@@ -16,7 +16,11 @@ wls_version:              &wls_version              1036
 wls_os_user:              &wls_os_user              "wls"
 wls_os_group:             &wls_os_group             "dba"
 wls_download_dir:         &wls_download_dir         "/data/install"
+<<<<<<< HEAD
 wls_source:               &wls_source               "/data/install"
+=======
+wls_source:               &wls_source               "/home/wls"
+>>>>>>> 2c31a7062df8b5683d359e9a5275b03ee5c63aa0
 wls_jdk_home_dir:         &wls_jdk_home_dir         "/usr/java/jdk1.7.0_45"
 wls_log_dir:              &wls_log_dir              "/data/logs"
 

@@ -170,7 +170,11 @@ class java {
       x64                  => true,
       downloadDir          => "/data/install",
       urandomJavaFix       => true,
+<<<<<<< HEAD
       sourcePath           =>"/data/install",
+=======
+      sourcePath           => "/home/wls",
+>>>>>>> 2c31a7062df8b5683d359e9a5275b03ee5c63aa0
   }
 
 }

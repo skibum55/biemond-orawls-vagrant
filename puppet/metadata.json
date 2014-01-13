@@ -1,0 +1,24 @@
+{
+  "name": "tiaa-orawls",
+  "version": "0.2.1",
+  "source": "TIAA",
+  "author": "Sean Keery <sean.keery@tiaa-cref.org>",
+  "license": "Apache License, Version 2.0",
+  "summary": "Transition of weblogic installation to Puppet",
+  "description": "Transition of weblogic installation to Puppet Class using hiera",
+  "project_page": "None",
+  "dependencies": [
+
+  ],
+  "types": [
+
+  ],
+  "checksums": {
+    "Modulefile": "5cb96c5a1e275775cced3fd28812391b",
+    "README": "97acb685520cb11b9ff21bfa94da7e49",
+    "lib/facter/tiaa.rb": "61fa6dcc99b06d75596735121e353901",
+    "manifests/init.pp": "a8017d8575a80cdc6ea158d4121ab584",
+    "spec/spec_helper.rb": "a55d1e6483344f8ec6963fcb2c220372",
+    "tests/init.pp": "5a4399e03965f8629de2d03a986db1c4"
+  }
+}
