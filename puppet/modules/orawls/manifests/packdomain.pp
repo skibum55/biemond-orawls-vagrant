@@ -7,8 +7,8 @@ define orawls::packdomain (
   $middleware_home_dir        = hiera('wls_middleware_home_dir'   , undef), # /opt/oracle/middleware11gR1
   $jdk_home_dir               = hiera('wls_jdk_home_dir'          , undef), # /usr/java/jdk1.7.0_45
   $domain_name                = hiera('domain_name'               , undef),
-  $os_user                    = hiera('wls_os_user'               , undef), # oracle
-  $os_group                   = hiera('wls_os_group'              , undef), # dba
+  $os_user                    = hiera('wls_os_user'               , "ser_dvapp"), # oracle
+  $os_group                   = hiera('wls_os_group'              , "dba"), # dba
   $download_dir               = hiera('wls_download_dir'          , undef), # /data/install
   $log_output                 = false, # true|false
 )

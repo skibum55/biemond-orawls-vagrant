@@ -16,8 +16,8 @@ define orawls::domain (
   $nodemanager_port           = hiera('domain_nodemanager_port'   , 5556),
   $weblogic_user              = hiera('wls_weblogic_user'         , "weblogic"),
   $weblogic_password          = hiera('domain_wls_password'       , undef),
-  $os_user                    = hiera('wls_os_user'               , undef), # oracle
-  $os_group                   = hiera('wls_os_group'              , undef), # dba
+  $os_user                    = hiera('wls_os_user'               , "ser_dvapp"), # oracle
+  $os_group                   = hiera('wls_os_group'              , "dba"), # dba
   $download_dir               = hiera('wls_download_dir'          , undef), # /data/install
   $log_dir                    = hiera('wls_log_dir'               , undef), # /data/logs
   $log_output                 = false, # true|false

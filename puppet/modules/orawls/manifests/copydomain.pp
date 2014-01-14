@@ -144,7 +144,7 @@ define orawls::copydomain (
 
     # copy domain from the adminserver to the this node ( with scp and without passwords )
     exec { "copy domain jar ${domain_name}":
-      command => "scp -oStrictHostKeyChecking=no -oCheckHostIP=no ${os_user}@${adminserver_address}:${download_dir}/domain_${domain_name}.jar ${log_dir}/domain_${domain_name}.jar",
+      command => "scp -oStrictHostKeyChecking=no -oCheckHostIP=no ser_dvapp@${adminserver_address}:${log_dir}/domain_${domain_name}.jar ${log_dir}/domain_${domain_name}.jar",
       path      => $exec_path,
       user      => $os_user,
       group     => $os_group,
@@ -186,14 +186,14 @@ define orawls::copydomain (
                       Exec["unpack ${domain_name}"]],
     }
 
-    exec { "domain.py ${domain_name} ${title}":
-      command => "rm ${download_dir}/enroll_domain_${domain_name}.py",
-      path      => $exec_path,
-      user      => $os_user,
-      group     => $os_group,
-      logoutput => $log_output,
-      require => Exec["execwlst ${domain_name} ${title}"],
-    }
+#    exec { "domain.py ${domain_name} ${title}":
+#      command => "rm ${download_dir}/enroll_domain_${domain_name}.py",
+#      path      => $exec_path,
+#      user      => $os_user,
+#      group     => $os_group,
+#      logoutput => $log_output,
+#      require => Exec["execwlst ${domain_name} ${title}"],
+#    }
 
   }
 }

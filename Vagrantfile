@@ -32,7 +32,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.facter = {
         "environment"                     => "development",
         "vm_type"                         => "vagrant",
-        "override_weblogic_user"          => "wls",
+        "override_weblogic_user"          => "ser_dvapp",
         "override_weblogic_domain_folder" => "/opt/oracle/wlsdomains",
       }
       
@@ -42,7 +42,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   config.vm.define "node1" do |node1|
   	
-  	node1.vm.box_url = "#{@box_url}/RHEL6_64-fusion503.box"
+#  	node1.vm.box_url = "#{@box_url}/RHEL6_64-fusion503.box"
     node1.vm.box = "RHEL6_64"
   
     node1.vm.hostname = "node1.example.com"
@@ -67,7 +67,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.facter = {
         "environment"                     => "development",
         "vm_type"                         => "vagrant",
-        "override_weblogic_user"          => "wls",
+        "override_weblogic_user"          => "ser_dvapp",
         "override_weblogic_domain_folder" => "/opt/oracle/wlsdomains",
       }
       
@@ -77,7 +77,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "node2" do |node2|
 
-    node2.vm.box_url = "#{@box_url}/RHEL6_64-fusion503.box"
+#    node2.vm.box_url = "#{@box_url}/RHEL6_64-fusion503.box"
     node2.vm.box = "RHEL6_64"
 
     node2.vm.hostname = "node2.example.com"
@@ -106,7 +106,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.facter = {
         "environment"                     => "development",
         "vm_type"                         => "vagrant",
-        "override_weblogic_user"          => "wls",
+        "override_weblogic_user"          => "ser_dvapp",
         "override_weblogic_domain_folder" => "/opt/oracle/wlsdomains",
       }
       

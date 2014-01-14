@@ -1,14 +1,13 @@
 # Class: tiaa-orawls
 #
-# This class is a stub for a module that provides a sysctl type and
-# 2 providers:
-#   linux.rb
-#   darwin.rb
+# This is a superclass for a weblogic cluster install
 #
 # Parameters:
 #   N/A
 #
 # Requires:
+#
+# biemond/orawl
 #
 # Sample Usage:
 #

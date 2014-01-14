@@ -22,14 +22,14 @@ class getfiles {
   
   wget::fetch { "download jdk":
        source      => 'https://googledrive.com/host/0B8QvzyOq8dtQN2lWaXFTWGtKdkE',
-       destination => '/data/install/jdk-7u45-linux-x64.tar.gz',
+       destination => '/vagrant/jdk-7u45-linux-x64.tar.gz',
        timeout     => 0,
        nocheckcertificate => false,
     }
     
     wget::fetch { "download weblogic install":
        source      => 'https://googledrive.com/host/0B8QvzyOq8dtQMlBFU1ZiWXM3ejg',
-       destination => '/data/install/wls1036_generic.jar',
+       destination => '/vagrant/wls1036_generic.jar',
        timeout     => 0,
        nocheckcertificate => false,
     }
@@ -41,21 +41,21 @@ class os {
   notify { "class os ${operatingsystem}":} 
 
   host{"admin":
-    ip => "192.168.14.4",
+    ip => "10.10.100.10",
     host_aliases => ['admin.example.com','admin'],
   }
 
-#  service { iptables:
-#        enable    => false,
-#        ensure    => false,
-#        hasstatus => true,
-#  }
-# turn off firewall - UFW
-
-  exec { firewall_shutdown:
-        command => '/usr/sbin/ufw disable',
-        user => root,
+  service { iptables:
+        enable    => false,
+        ensure    => false,
+        hasstatus => true,
   }
+# turn off firewall - Ubuntu Firewall
+
+#  exec { firewall_shutdown:
+#        command => '/usr/sbin/ufw disable',
+#        user => root,
+#  }
 
   group { 'dba' :
     ensure => present,
@@ -63,12 +63,12 @@ class os {
 
   # http://raftaman.net/?p=1311 for generating password
   # password = oracle
-  user { 'wls' :
+  user { 'ser_dvapp' :
     ensure     => present,
     groups     => 'dba',
     shell      => '/bin/bash',
     password   => '$1$DSJ51vh6$4XzzwyIOk6Bi/54kglGk3.',
-    home       => "/home/wls",
+    home       => "/home/ser_dvapp",
     comment    => 'Oracle wls user created by Puppet',
     managehome => true,
     require    => Group['dba'],
@@ -113,39 +113,39 @@ class os {
 class ssh {
   require os
 
-  file { "/home/wls/.ssh/":
-    owner  => "wls",
+  file { "/home/ser_dvapp/.ssh/":
+    owner  => "ser_dvapp",
     group  => "dba",
     mode   => "700",
     ensure => "directory",
-    alias  => "wls-ssh-dir",
+    alias  => "ser_dvapp-ssh-dir",
   }
   
-  file { "/home/wls/.ssh/id_rsa.pub":
+  file { "/home/ser_dvapp/.ssh/id_rsa.pub":
     ensure  => present,
-    owner   => "wls",
+    owner   => "ser_dvapp",
     group   => "dba",
     mode    => "644",
-    source  => "/root/skibum55-orawls-vagrant/ssh/id_rsa.pub",
-    require => File["wls-ssh-dir"],
+    source  => "/vagrant/ssh/id_rsa.pub",
+    require => File["ser_dvapp-ssh-dir"],
   }
   
-  file { "/home/wls/.ssh/id_rsa":
+  file { "/home/ser_dvapp/.ssh/id_rsa":
     ensure  => present,
-    owner   => "wls",
+    owner   => "ser_dvapp",
     group   => "dba",
     mode    => "600",
-    source  => "/root/skibum55-orawls-vagrant/ssh/id_rsa",
-    require => File["wls-ssh-dir"],
+    source  => "/vagrant/ssh/id_rsa",
+    require => File["ser_dvapp-ssh-dir"],
   }
   
-  file { "/home/wls/.ssh/authorized_keys":
+  file { "/home/ser_dvapp/.ssh/authorized_keys":
     ensure  => present,
-    owner   => "wls",
+    owner   => "ser_dvapp",
     group   => "dba",
     mode    => "644",
-    source  => "/root/skibum55-orawls-vagrant/ssh/id_rsa.pub",
-    require => File["wls-ssh-dir"],
+    source  => "/vagrant/ssh/id_rsa.pub",
+    require => File["ser_dvapp-ssh-dir"],
   }        
 }
 
@@ -170,11 +170,7 @@ class java {
       x64                  => true,
       downloadDir          => "/data/install",
       urandomJavaFix       => true,
-<<<<<<< HEAD
-      sourcePath           =>"/data/install",
-=======
-      sourcePath           => "/home/wls",
->>>>>>> 2c31a7062df8b5683d359e9a5275b03ee5c63aa0
+      sourcePath           => "/vagrant",
   }
 
 }

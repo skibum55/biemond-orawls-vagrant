@@ -1,6 +1,6 @@
 # test
 #
-# one machine setup with weblogic 12.1.2
+# cluster setup with weblogic 10.36
 # needs jdk7, orawls, orautils, fiddyspence-sysctl, erwbgy-limits puppet modules
 #
 
@@ -31,9 +31,14 @@ class getfiles {
 
   notify { 'getfiles from google': }
   
+  file { ["/data","/data/install"]:
+       ensure => "directory",
+  }
+
+  
   wget::fetch { "download jdk":
        source      => 'https://googledrive.com/host/0B8QvzyOq8dtQN2lWaXFTWGtKdkE',
-       destination => '/home/wls/jdk-7u45-linux-x64.tar.gz',
+       destination => '/vagrant/jdk-7u45-linux-x64.tar.gz',
        timeout     => 0,
        nocheckcertificate => true,
        verbose     => false,
@@ -41,7 +46,7 @@ class getfiles {
     
     wget::fetch { "download weblogic install":
        source      => 'https://googledrive.com/host/0B8QvzyOq8dtQMlBFU1ZiWXM3ejg',
-       destination => '/home/wls/wls1036_generic.jar',
+       destination => '/vagrant/wls1036_generic.jar',
        timeout     => 0,
        nocheckcertificate => true,
        verbose     => false,
@@ -54,16 +59,12 @@ class os {
   notice "class os ${operatingsystem}"
 
   host{"node1":
-<<<<<<< HEAD
-    ip => "192.168.14.5",
-=======
-    ip => "192.168.14.2",
->>>>>>> 2c31a7062df8b5683d359e9a5275b03ee5c63aa0
+    ip => "10.10.100.100",
     host_aliases => ['node1.example.com','node1'],
   }
 
   host{"node2":
-    ip => "192.168.14.6",
+    ip => "10.10.100.200",
     host_aliases => ['node2.example.com','node2'],
   }
 
@@ -85,13 +86,13 @@ class os {
 
   # http://raftaman.net/?p=1311 for generating password
   # password = oracle
-  user { 'wls' :
+  user { 'ser_dvapp' :
     ensure     => present,
     groups     => 'dba',
     shell      => '/bin/bash',
     password   => '$1$DSJ51vh6$4XzzwyIOk6Bi/54kglGk3.',
-    home       => "/home/wls",
-    comment    => 'wls user created by Puppet',
+    home       => "/home/ser_dvapp",
+    comment    => 'ser_dvapp user created by Puppet',
     managehome => true,
     require    => Group['dba'],
   }
@@ -139,39 +140,39 @@ class ssh {
 
   notice 'class ssh'
 
-  file { "/home/wls/.ssh/":
-    owner  => "wls",
+  file { "/home/ser_dvapp/.ssh/":
+    owner  => "ser_dvapp",
     group  => "dba",
     mode   => "700",
     ensure => "directory",
-    alias  => "wls-ssh-dir",
+    alias  => "ser_dvapp-ssh-dir",
   }
   
-  file { "/home/wls/.ssh/id_rsa.pub":
+  file { "/home/ser_dvapp/.ssh/id_rsa.pub":
     ensure  => present,
-    owner   => "wls",
+    owner   => "ser_dvapp",
     group   => "dba",
     mode    => "644",
     source  => "/vagrant/ssh/id_rsa.pub",
-    require => File["wls-ssh-dir"],
+    require => File["ser_dvapp-ssh-dir"],
   }
   
-  file { "/home/wls/.ssh/id_rsa":
+  file { "/home/ser_dvapp/.ssh/id_rsa":
     ensure  => present,
-    owner   => "wls",
+    owner   => "ser_dvapp",
     group   => "dba",
     mode    => "600",
     source  => "/vagrant/ssh/id_rsa",
-    require => File["wls-ssh-dir"],
+    require => File["ser_dvapp-ssh-dir"],
   }
   
-  file { "/home/wls/.ssh/authorized_keys":
+  file { "/home/ser_dvapp/.ssh/authorized_keys":
     ensure  => present,
-    owner   => "wls",
+    owner   => "ser_dvapp",
     group   => "dba",
     mode    => "644",
     source  => "/vagrant/ssh/id_rsa.pub",
-    require => File["wls-ssh-dir"],
+    require => File["ser_dvapp-ssh-dir"],
   }        
 }
 
@@ -190,12 +191,12 @@ class java {
 
   jdk7::install7{ 'jdk1.7.0_45':
       version              => "7u45" , 
-      fullVersion          => "jdk1.7.0",
+      fullVersion          => "jdk1.7.0_45",
       alternativesPriority => 18000, 
       x64                  => true,
       downloadDir          => "/data/install",
       urandomJavaFix       => true,
-      sourcePath           => "/home/wls",
+      sourcePath           => "/vagrant",
   }
 
 }
