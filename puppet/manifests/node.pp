@@ -5,7 +5,7 @@
 # needs jdk7, orawls, orautils, fiddyspence-sysctl, erwbgy-limits puppet modules
 #
 
-node 'node1', 'node2' {
+class tiaa-orawls::node {
   
   include os, ssh, java, orawls::weblogic,  orautils, copydomain, nodemanager, wget, getfiles
 
