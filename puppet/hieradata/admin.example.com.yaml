@@ -50,7 +50,7 @@ control_instances:
 userconfig_instances:
   'Wls11g':
      log_output:           *logoutput
-     user_config_dir:      '/export/home/oracle'
+     user_config_dir:      '/opt/oracle'
      
 # create 2 machines
 machines_instances:
