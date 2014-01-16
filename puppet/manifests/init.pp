@@ -7,7 +7,7 @@
 #
 # Requires:
 #
-# biemond/orawl
+# biemond/orawls
 #
 # Sample Usage:
 #
