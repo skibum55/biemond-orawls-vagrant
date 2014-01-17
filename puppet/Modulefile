@@ -1,5 +1,5 @@
 name    'tiaa-orawls'
-version '0.2.1'
+version '0.2.5'
 source 'TIAA'
 author 'Sean Keery <sean.keery@tiaa-cref.org>'
 license 'Apache License, Version 2.0'
