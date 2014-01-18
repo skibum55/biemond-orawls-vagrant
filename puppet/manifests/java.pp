@@ -1,8 +1,8 @@
-# Define: tiaa-orawls::java
+# Class: tiaa-orawls::java
  # Parameters:
  # arguments
  #
- define tiaa-orawls::java(){
+ class tiaa-orawls::java {
   require tiaa-orawls::os
 
   notice 'class tiaa-orawls::java'
@@ -25,4 +25,4 @@
       sourcePath           => "puppet://modules/tiaa-orawls",
   }
 
-}
+ }
